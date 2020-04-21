@@ -3,6 +3,7 @@ const compile = require("near-sdk-as/compiler").compile
 compile("assembly/main.ts", // input file
         "out/main.wasm",    // output file
         [                   // add optional args here
+          "-O3z",
           "--debug",        // Shows debug output
           "--measure",      // Shows compiler run time
           "--validate"      // Validate the generated wasm module
@@ -26,7 +27,10 @@ So the above call to compile() would change to this:
 compile("assembly/main.ts", // input file
         "out/main.wasm",    // output file
         [                   // add optional args here
-          "-O3z --converge" // Optimize for size and speed
+          
+          "-O3z"            // Optimize for size and speed
+          "--converge"      // Converges on maximal optimization
+
           "--debug",        // Shows debug output
           "--measure",      // Shows compiler run time
           "--validate"      // Validate the generated wasm module

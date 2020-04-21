@@ -1,11 +1,15 @@
 {
-  "name": "why-assemblyscript",
+  "name": "why-assemblyscript-TEMPLATE",
   "version": "0.0.1",
   "description": "Learn to develop contracts for NEAR Protocol using AssemblyScript",
   "author": "Sherif Abushadi <sherif@nearprotocol.com>",
   "license": "MIT",
   "scripts": {
+    "deploy:contract": "near deploy",
+    "build:contract": "node asconfig.js",
     "test:contract": "asp --verbose",
+    "deploy": "yarn deploy:contract",
+    "build": "yarn build:contract",
     "test": "yarn test:contract"
   },
   "devDependencies": {
