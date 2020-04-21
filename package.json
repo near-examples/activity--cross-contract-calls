@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "assemblyscript": "^0.9.4",
-    "near-sdk-as": "^0.1.5",
+    "near-sdk-as": "^0.2.0",
     "near-shell": "^0.20.8"
   },
   "engines": {
