@@ -5,7 +5,7 @@
   "author": "Sherif Abushadi <sherif@nearprotocol.com>",
   "license": "MIT",
   "scripts": {
-    "test:contract": "asp --config ./as-pect.config.js --verbose",
+    "test:contract": "asp --verbose",
     "test": "yarn test:contract"
   },
   "devDependencies": {
