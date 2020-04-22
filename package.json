@@ -12,8 +12,9 @@
   },
   "devDependencies": {
     "assemblyscript": "^0.9.4",
-    "near-sdk-as": "^0.2.0",
-    "near-shell": "^0.20.8"
+    "near-sdk-as": "^0.2.1",
+    "near-shell": "^0.20.8",
+    "near-vm": "^0.0.3"
   },
   "engines": {
     "node": ">=12.0.0"

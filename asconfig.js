@@ -1,15 +1,31 @@
 const compile = require("near-sdk-as/compiler").compile
 
-compile("assembly/main.ts", // input file
-        "out/main.wasm",    // output file
-        [                   // add optional args here
-          "-O3z",
-          "--debug",        // Shows debug output
-          "--measure",      // Shows compiler run time
-          "--validate"      // Validate the generated wasm module
-        ], {
-          verbose: false    // Output the cli args passed to asc
-        });
+function compileContract(name) {
+
+  console.log(`\ncompiling contract [ contract/${name}.ts ] to [ out/${name}.wasm ]`)
+
+  compile(`assembly/contracts/${name}.ts`, // input file
+          `out/${name}.wasm`, // output file
+          [ // add optional args here
+            // "-O3z",
+            "--debug", // Shows debug output
+            "--measure", // Shows compiler run time
+            "--validate" // Validate the generated wasm module
+          ], {
+            verbose: false // Output the cli args passed to asc
+          });
+}
+
+const fs = require('fs');
+const folder = `${__dirname}/assembly/contracts`
+
+fs.readdir(folder, (err, files) => {
+  files.forEach(file => {
+    const name = file.split(".")[0]
+    compileContract(name)
+  });
+})
+
 
 /**************************************************************
   NEAR relies on AssemblyScript to optimize file size and 
