@@ -1,49 +1,48 @@
-<br />
-<br />
+![Near, Inc. logo](https://nearprotocol.com/wp-content/themes/near-19/assets/img/logo.svg?t=1553011311)
 
-<p>
-<img src="https://nearprotocol.com/wp-content/themes/near-19/assets/img/logo.svg?t=1553011311" width="240">
-</p>
+# Template for NEAR Protocol workshop activities
 
-<br />
-<br />
+## Environment Setup
 
-## Template for NEAR Protocol workshop activities
-
-### Requirements
-
-##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version > 12.x 
+##### IMPORTANT: Make sure you have the latest version of NEAR Shell and Node Version >= 12.x 
 
 1. [Node.js](https://nodejs.org/en/download/package-manager/)
-2. (optional) near-shell
+2. (optional) `near-shell`
 
 ```
 npm i -g near-shell
 ```
+
 3. (optional) yarn
+
 ```
 npm i -g yarn
 ```
 
-### Working with contracts
+4. Clone this repo locally
 
-#### To run unit tests
+5. Run `yarn` in the repo folder to install dependencies
+
+## Working with contracts
+
+### To run unit tests
 
 ```bash
 yarn test
 ```
 
-#### To build the contract
+### To build the contract
 
 ```bash
 yarn build
 ```
 
-#### To deploy the contract
+### To deploy the contract
 
-*You will need to install NEAR Shell first if you haven't already done so*
 
 1. Login with NEAR Shell
+
+- *You will need to install NEAR Shell first if you haven't already done so*
 
 ```bash
 near login
@@ -52,13 +51,21 @@ near login
 2. Deploy the contract to the account with which you logged in above
 
 ```bash
-yarn deploy --accountId <contract account>
+near deploy --accountId <contract account>
+
+# for example: 
+# near deploy --accountId alice
 ```
 
-3. Invoke methods on the contract 
+### To invoke methods on a deployed contract
+
+- *Signer account may be the same as contract account for testing but will almost certainly **not be the same** in production*
+- *See `assembly/main.ts` for available contract methods*
 
 ```bash
 near call <contract account> <contract method> --accountId <signer account>
+
+# for example: 
+# near call alice sayMyName --accountId alice
 ```
 
-*Signer account can be the same as contract account for testing but will almost certainly not be the same in production*
