@@ -27,7 +27,7 @@ So the above call to compile() would change to this:
 compile("assembly/main.ts", // input file
         "out/main.wasm",    // output file
         [                   // add optional args here
-          
+
           "-O3z"            // Optimize for size and speed
           "--converge"      // Converges on maximal optimization
 

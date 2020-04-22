@@ -41,9 +41,9 @@ yarn build
 
 #### To deploy the contract
 
-1. Login with NEAR Shell
-
 *You will need to install NEAR Shell first if you haven't already done so*
+
+1. Login with NEAR Shell
 
 ```bash
 near login
@@ -52,5 +52,13 @@ near login
 2. Deploy the contract to the account with which you logged in above
 
 ```bash
-yarn deploy --accountId <your account id>
+yarn deploy --accountId <contract account>
 ```
+
+3. Invoke methods on the contract 
+
+```bash
+near call <contract account> <contract method> --accountId <signer account>
+```
+
+*Signer account can be the same as contract account for testing but will almost certainly not be the same in production*
