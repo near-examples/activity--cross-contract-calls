@@ -106,3 +106,19 @@ yarn near-vm --wasm-file ./out/sentences.wasm --method-name reverseWordTwo
 }
 ```
 
+> **note:** if you have [`jq` installed](https://stedolan.github.io/jq/download/) you can use the following incantation to get right at the JSON output
+> 
+> ```bash
+> yarn build \
+> && yarn near-vm --wasm-file ./out/sentences.wasm  \
+>                 --method-name reverseWordTwo  \
+> | awk 'FNR == 3 { print }' \
+> | jq '.'
+> ```
+>
+> and you can pick apart the response object using key names like this: 
+> 
+> ```bash
+> # ... snip (see above) ...
+> | jq '.receipts'
+> ```
