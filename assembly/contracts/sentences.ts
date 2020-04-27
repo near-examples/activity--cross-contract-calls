@@ -22,6 +22,57 @@ import { Word } from "../models/word";
 //   // })
 // }
 
+
+
+export function reverseWordThree(): void {
+  const word = new Word("sample")
+  const contract = "words.examples"
+  const method = "reverse"
+
+  // setup args object for cross-contract call as key-value of contract method parameters
+  // note: the method signature in the words contract is reverse(word: Word)
+  let reverseArgs = new ReverseArgs(word)
+
+  let promise = ContractPromise.create(
+    contract,                             // contract account name
+    method,                               // contract method name
+    reverseArgs.encode(),                 // serialized contract method arguments encoded as Uint8Array
+    10000000,                                    // gas attached to the call
+    u128.Zero                             // attached deposit to be sent with the call
+  )
+
+  // Setting up args for the callback
+  let responseArgs = new ReverseArgs(new Word("elpmas"));
+  logging.log(responseArgs);
+
+  logging.log(context.contractName)
+
+  let callbackPromise = promise.then(
+    context.contractName,
+    "_onReverseCalledTwo",
+    responseArgs.encode(),
+    2
+  );
+
+  callbackPromise.returnAsResult();
+}
+
+export function _onReverseCalledTwo(word: Word): bool {
+  const drow = word;
+  let results = ContractPromise.getResults();
+  assert(results.length > 0, "should be contract promise result");
+  let reverseResult = results[0];
+  // Verifying the remote contract call succeeded.
+  if (reverseResult.status == 1) {
+    // Decoding data from the bytes buffer into the local object.
+    let word = decode<Word>(reverseResult.buffer);
+    logging.log(word);
+    return word.text == drow.text
+  }
+
+  return false
+}
+
 export function reverseWordTwo(): void {
   const word = new Word("sample")
   const contract = "words.examples"
@@ -35,35 +86,36 @@ export function reverseWordTwo(): void {
     contract,                             // contract account name
     method,                               // contract method name
     reverseArgs.encode(),                 // serialized contract method arguments encoded as Uint8Array
-    0,                                    // gas attached to the call
+    10000000,                                    // gas attached to the call
     u128.Zero                             // attached deposit to be sent with the call
   )
 
   // Setting up args for the callback
-  let responseArgs = new ReverseArgs(new Word("elpmas"))
+  // let responseArgs = new ReverseArgs(new Word("elpmas"))
 
   logging.log(context.contractName)
 
   let callbackPromise = promise.then(
     context.contractName,
     "_onReverseCalled",
-    responseArgs.encode(),
+    new Uint8Array(0),
     2
   );
 
   callbackPromise.returnAsResult();
 }
 
-export function _onReverseCalled(drow: Word): bool {
+export function _onReverseCalled(): bool {
+  const drow = new Word("elpmas");
   let results = ContractPromise.getResults();
-
+  assert(results.length > 0, "should be contract promise result");
   let reverseResult = results[0];
   // Verifying the remote contract call succeeded.
-  if (reverseResult.status === 0) {
+  if (reverseResult.status == 1) {
     // Decoding data from the bytes buffer into the local object.
     let word = decode<Word>(reverseResult.buffer);
-
-    return word.text === drow.text
+    logging.log(word);
+    return word.text == drow.text
   }
 
   return false
