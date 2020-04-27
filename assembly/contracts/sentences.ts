@@ -37,7 +37,7 @@ export function reverseWordThree(): void {
     contract,                             // contract account name
     method,                               // contract method name
     reverseArgs.encode(),                 // serialized contract method arguments encoded as Uint8Array
-    10000000,                                    // gas attached to the call
+    10000000,                             // gas attached to the call
     u128.Zero                             // attached deposit to be sent with the call
   )
 
@@ -62,6 +62,7 @@ export function _onReverseCalledTwo(word: Word): bool {
   let results = ContractPromise.getResults();
   assert(results.length > 0, "should be contract promise result");
   let reverseResult = results[0];
+
   // Verifying the remote contract call succeeded.
   if (reverseResult.status == 1) {
     // Decoding data from the bytes buffer into the local object.
@@ -97,7 +98,7 @@ export function reverseWordTwo(): void {
 
   let callbackPromise = promise.then(
     context.contractName,
-    "_onReverseCalled",
+    "_onReverseCalledTwo",
     new Uint8Array(0),
     2
   );
