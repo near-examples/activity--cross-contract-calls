@@ -4,20 +4,20 @@ function compileContract(name) {
 
   console.log(`\ncompiling contract [ contract/${name}.ts ] to [ out/${name}.wasm ]`)
 
-  compile(`assembly/contracts/${name}.ts`, // input file
-          `out/${name}.wasm`, // output file
-          [ // add optional args here
+  compile(`contracts/assembly/contracts/${name}.ts`, // input file
+          `out/${name}-as.wasm`,                     // output file
+          [                                          // add optional args here
             // "-O3z",
-            "--debug", // Shows debug output
-            "--measure", // Shows compiler run time
-            "--validate" // Validate the generated wasm module
+            "--debug",                               // Shows debug output
+            "--measure",                             // Shows compiler run time
+            "--validate"                             // Validate the generated wasm module
           ], {
-            verbose: false // Output the cli args passed to asc
+            verbose: false                           // Output the cli args passed to asc
           });
 }
 
 const fs = require('fs');
-const folder = `${__dirname}/assembly/contracts`
+const folder = `${__dirname}/contracts/assembly/contracts`
 
 fs.readdir(folder, (err, files) => {
   files.forEach(file => {

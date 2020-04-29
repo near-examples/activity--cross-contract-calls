@@ -1,13 +1,14 @@
 {
-  "name": "activity-TEMPLATE",
+  "name": "activity--cross-contract-calls",
   "version": "0.0.1",
   "description": "Learn to develop contracts for NEAR Protocol using AssemblyScript",
-  "author": "Sherif Abushadi <sherif@nearprotocol.com>",
+  "author": "Near Inc <hello@nearprotocol.com>",
   "license": "MIT",
   "scripts": {
-    "build:contract": "node asconfig.js",
+    "build:contract:rust": "(cd contracts/rust && ./build_all.sh)",
+    "build:contract:assemblyscript": "node asconfig.js",
     "test:contract": "asp --verbose",
-    "build": "yarn build:contract",
+    "build": "yarn build:contract:rust && yarn build:contract:assemblyscript",
     "test": "yarn test:contract"
   },
   "devDependencies": {
